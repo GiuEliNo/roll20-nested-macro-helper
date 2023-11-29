@@ -90,16 +90,17 @@ void parser(char *string_to_parse, int fd){
         }
     }
     new_string[j]='\0';
-    printf("%s\ncaratteri originali: %d\ncaratteri nuova stringa: %d\n", new_string, i, j);
+    printf("\n%s\ncaratteri originali: %d\ncaratteri nuova stringa: %d\n", new_string, i, j);
     write(fd, new_string, j);
     
 }
 
 int main(int argc, char** argv){
     int size;
+    printf("\nModificherò la tua macro per te. Ricorda di inserire la macro nel file macro.txt\n");
     int fd2=open("macro-output.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd2 ==-1){
-        printf("Error number %d", -1);
+        printf("\nErrore, il file macro.txt non è stato trovato. Ricordalo di inserirlo nella stessa cartella di quest'eseguibile\n");
         exit(EXIT_FAILURE);
     }
     int fd1=open("macro.txt", O_RDONLY);
@@ -112,7 +113,7 @@ int main(int argc, char** argv){
     while((size=read(fd1, &str, 16384))!=0){
         parser(str, fd2);
     }
-    printf("Stringa sostituita nel file macro-output.txt\n");
+    printf("Finito!\nAdesso puoi tranquillamente inserire la tua macro nella sezione 'Abilities' di roll20, e inserirla in una macro annidata.\n Trovi la macro modificata nel file macro-output.txt\n");
     close(fd1);
     close(fd2);
     return 0;
